@@ -1,6 +1,6 @@
 /* ================================================================
    DAVID IGBONAJU — PORTFOLIO INTERACTIONS
-   Scroll animations, navigation, counter animation.
+   Scroll animations, navigation, counter animation, back-to-top.
    ================================================================ */
 
 (function () {
@@ -14,13 +14,19 @@
     onScroll();
   }
 
-  /* ── Mobile Nav Toggle ── */
+  /* ── Mobile Nav Toggle (with hamburger → X animation) ── */
   const toggle = document.querySelector(".nav-toggle");
   const links  = document.querySelector(".nav-links");
   if (toggle && links) {
-    toggle.addEventListener("click", () => links.classList.toggle("open"));
+    toggle.addEventListener("click", () => {
+      links.classList.toggle("open");
+      toggle.classList.toggle("open");
+    });
     links.querySelectorAll("a").forEach(a =>
-      a.addEventListener("click", () => links.classList.remove("open"))
+      a.addEventListener("click", () => {
+        links.classList.remove("open");
+        toggle.classList.remove("open");
+      })
     );
   }
 
@@ -89,4 +95,36 @@
       }
     });
   });
+
+  /* ── Back to Top Button ── */
+  const backBtn = document.querySelector(".back-to-top");
+  if (backBtn) {
+    const toggleBack = () => backBtn.classList.toggle("visible", window.scrollY > 400);
+    window.addEventListener("scroll", toggleBack, { passive: true });
+    toggleBack();
+    backBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* ── Active Nav Section Tracking ── */
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav-links a");
+  if (sections.length && navLinks.length && "IntersectionObserver" in window) {
+    const sectionIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach((link) => {
+              const href = link.getAttribute("href") || "";
+              link.classList.toggle("active", href.includes("#" + id));
+            });
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "-80px 0px -40% 0px" }
+    );
+    sections.forEach((s) => sectionIO.observe(s));
+  }
 })();

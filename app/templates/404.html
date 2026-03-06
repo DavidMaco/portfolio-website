@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}404 — Page Not Found{% endblock %}
+{% block description %}The page you're looking for doesn't exist.{% endblock %}
+{% block og_title %}404 — Page Not Found{% endblock %}
+
+{% block content %}
+
+<section class="error-page">
+  <div class="error-bg"></div>
+  <div class="container" style="position: relative; z-index: 1; text-align: center;">
+    <div class="error-code" data-animate>404</div>
+    <h1 class="section-title" style="margin-bottom: 0.8rem;" data-animate data-delay="1">
+      Page not found
+    </h1>
+    <p class="section-desc" style="margin: 0 auto 2.5rem; text-align: center;" data-animate data-delay="2">
+      The page you're looking for doesn't exist or has been moved.
+    </p>
+    <a href="{{ base }}index.html" class="btn btn-primary" data-animate data-delay="3">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to Home
+    </a>
+  </div>
+</section>
+
+{% endblock %}
