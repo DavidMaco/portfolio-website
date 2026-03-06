@@ -1,0 +1,359 @@
+# ================================================
+# FLAGSHIP PROJECT DATA
+# Curated subset for the professional portfolio.
+# ================================================
+
+- id: aegis-procurement
+  title: "AEGIS"
+  subtitle: "Adaptive Engine for Global Intelligent Sourcing"
+  tagline: "16 analytics engines, 40+ table MySQL schema, 27-endpoint REST API, and 12-page executive dashboard."
+  domain: "Procurement Analytics"
+  color: "#3B82F6"
+  gradient: "from-blue-500 to-cyan-400"
+  status: "Production-Ready"
+  problem_statement: >
+    Procurement organizations lack a unified system to quantify supplier risk,
+    FX exposure, ESG compliance, and cost leakage across global supply chains.
+    Decisions are made on incomplete data spread across siloed ERPs, spreadsheets,
+    and manual reports.
+  solution_summary: >
+    AEGIS integrates 16 analytics engines, including Monte Carlo simulation,
+    MCDA supplier scoring (TOPSIS, PROMETHEE-II), game-theoretic negotiation,
+    digital-twin supply-chain simulation, and NLP spend classification, over a
+    normalized 40+ table MySQL schema with star-schema warehouse ETL, surfaced
+    through a 12-page Streamlit dashboard and a 27-endpoint FastAPI REST API
+    with JWT and API-key authentication.
+  architecture_summary: >
+    Data flows from ERP/PO/FX sources through a 14-step seed data generator into a
+    30+ table OLTP layer, then through star-schema ETL (SCD Type 2) into a dimensional
+    warehouse, consumed by 16 analytics engines. Results surface via a 12-page Streamlit
+    dashboard, 27-endpoint FastAPI REST API, and Power BI semantic views.
+  architecture_layers:
+    - name: "Data Ingestion"
+      description: "ERP connectors, CSV upload, 14-step seed generator, FX API feeds"
+      tech: "Python, SQLAlchemy, REST APIs"
+    - name: "Storage Layer"
+      description: "40+ table OLTP schema with star-schema warehouse and SCD Type 2 ETL"
+      tech: "MySQL 8.0, Star Schema"
+    - name: "Analytics Engine"
+      description: "16 engines: Monte Carlo, TOPSIS, PROMETHEE-II, Nash bargaining, Digital Twin, NLP"
+      tech: "NumPy, SciPy, pandas"
+    - name: "API Layer"
+      description: "27 REST endpoints with JWT + API-key auth, rate limiting, OpenAPI docs"
+      tech: "FastAPI, Pydantic v2"
+    - name: "Presentation"
+      description: "12-page interactive dashboard with real-time filtering and drill-down"
+      tech: "Streamlit, Plotly, Power BI"
+  business_impact:
+    - "7-dimension composite risk scoring across Financial, Operational, Geopolitical, Compliance, Concentration, ESG, and Cyber"
+    - "10,000-path Geometric Brownian Motion Monte Carlo for FX risk with P5 to P95 bands and VaR"
+    - "GHG Protocol Scope 3 carbon tracking with GLEC Framework emission factors"
+    - "HHI concentration analysis across 5 dimensions"
+    - "Should-cost models with leakage flags at 5%, 15%, and 25% thresholds"
+  stack:
+    - "Python 3.11+"
+    - "MySQL 8.0"
+    - "Streamlit"
+    - "FastAPI"
+    - "SQLAlchemy"
+    - "NumPy / pandas"
+    - "Plotly"
+    - "Docker"
+    - "GitHub Actions"
+    - "JWT Auth"
+  highlights:
+    - label: "Engines"
+      value: "16"
+    - label: "Tables"
+      value: "40+"
+    - label: "API Endpoints"
+      value: "27"
+    - label: "Tests"
+      value: "335"
+  key_features:
+    - "TOPSIS + PROMETHEE-II multi-criteria supplier scoring with interactive weight sliders"
+    - "Game-theoretic negotiation engine (Nash bargaining, Vickrey/first-price auctions)"
+    - "Digital-twin supply-chain simulation with multi-scenario Monte Carlo"
+    - "RL-based inventory allocation (tabular Q-learning) and GenAI copilot"
+    - "335 pytest tests (0 require database), CI with security scanning"
+  dashboard_pages:
+    - page: "Supplier Risk Scorecard"
+      icon: "crosshair"
+      description: "TOPSIS + PROMETHEE-II composite scores across 7 risk dimensions with interactive weight sliders and HHI concentration heat map."
+      metrics: ["7-Dim Score", "HHI Index", "ESG Rating", "Cyber Risk"]
+    - page: "FX Monte Carlo Forecast"
+      icon: "trending-down"
+      description: "10,000-path GBM simulation with P5/P50/P95 FX bands, VaR (95%), CVaR, and configurable horizon sliders."
+      metrics: ["P95 Exposure", "VaR 95%", "CVaR", "Volatility"]
+    - page: "Spend Intelligence"
+      icon: "dollar-sign"
+      description: "Spend cube with should-cost leakage flags at 5/15/25% thresholds, category heatmaps, and maverick buy exposure."
+      metrics: ["Leakage %", "Cost Gap", "Maverick %", "HHI"]
+    - page: "Supply Chain Digital Twin"
+      icon: "link"
+      description: "Multi-scenario simulation of lead times, disruption probabilities, port congestion, and optimal reorder points."
+      metrics: ["Disruption P", "LT P95", "Safety Stock", "Reorder Pt"]
+    - page: "GenAI Copilot"
+      icon: "cpu"
+      description: "RL-based inventory allocation (Q-learning) with natural language procurement recommendations."
+      metrics: ["Q-Value", "Alloc Score", "Reorder Signal", "Action"]
+  repo_url: "https://github.com/DavidMaco/Supplier_Selection_Project"
+  demo_url: "https://supplierselectionproject.streamlit.app/"
+
+- id: pvis
+  title: "PVIS"
+  subtitle: "Procurement Volatility Intelligence System"
+  tagline: "Regime-weighted Monte Carlo FX simulation, composite supplier risk scoring, and working capital optimization."
+  domain: "Procurement Analytics"
+  color: "#10B981"
+  gradient: "from-emerald-500 to-teal-400"
+  status: "Production-Ready"
+  problem_statement: >
+    Manufacturing procurement teams face three critical blind spots: FX volatility
+    (a 15% NGN devaluation can wipe out 180M+ NGN in margin), supplier risk (late
+    deliveries cascade into production stoppages), and cash leakage (cost variances
+    against standard costs go undetected across 1,000+ PO lines).
+  solution_summary: >
+    PVIS implements regime-weighted Monte Carlo FX simulation (10K to 50K paths over
+    up to 1,095 trading days) with live dual-API FX failover, a 6-factor composite
+    supplier risk scoring model, cost leakage detection, and CCC optimization.
+    Surfaced through an 8-page interactive Streamlit dashboard with full demo mode
+    and a Power BI decision layer.
+  architecture_summary: >
+    Three-tier architecture: ingestion layer (live FX APIs, CSV upload, 3-year seed
+    generator) feeding a 19-table MySQL OLTP store and star-schema warehouse,
+    processed by an analytics engine (Monte Carlo FX, composite risk, spend
+    aggregation, working capital KPIs), presented in an 8-page Streamlit dashboard
+    with Plotly charts and a Power BI semantic SQL view layer.
+  architecture_layers:
+    - name: "Ingestion"
+      description: "Live FX APIs with dual-provider failover, CSV upload, 3-year seed generator"
+      tech: "Python, REST APIs, Aiven MySQL"
+    - name: "Storage"
+      description: "19-table OLTP schema with star-schema warehouse for analytical queries"
+      tech: "MySQL 8.0, Aiven Cloud"
+    - name: "Analytics"
+      description: "Regime-weighted Monte Carlo, 6-factor risk scoring, CCC optimization"
+      tech: "NumPy, SciPy, pandas"
+    - name: "Presentation"
+      description: "8-page interactive dashboard with demo mode and Power BI semantic layer"
+      tech: "Streamlit, Plotly, Power BI"
+  business_impact:
+    - "Regime-weighted Monte Carlo simulation with 10K to 50K GBM paths, P5/P50/P95 bands"
+    - "6-factor composite supplier risk scoring (OTD, defects, cost variance, FX, lead-time, geo)"
+    - "Live FX monitoring for 150+ currencies with dual-API failover"
+    - "Cost leakage detection via unit-price vs. standard-cost variance"
+    - "Cash Conversion Cycle optimization with DIO/DPO modeling"
+  stack:
+    - "Python 3.13+"
+    - "MySQL 8.0"
+    - "Aiven Cloud"
+    - "Streamlit"
+    - "SQLAlchemy"
+    - "NumPy / pandas"
+    - "Plotly"
+    - "Docker"
+    - "GitHub Actions"
+  highlights:
+    - label: "Pages"
+      value: "8"
+    - label: "Tables"
+      value: "19"
+    - label: "FX Currencies"
+      value: "150+"
+    - label: "MC Paths"
+      value: "50K"
+  key_features:
+    - "Live demo on Streamlit Cloud with Aiven MySQL, all 8 pages fully interactive"
+    - "Regime-weighted Monte Carlo with configurable horizon (30 to 1,095 days)"
+    - "Auto-generated per-supplier negotiation action playbooks"
+    - "Interactive company data upload with full pipeline re-run"
+    - "Demo Mode operates with full functionality without database"
+  dashboard_pages:
+    - page: "FX Volatility Dashboard"
+      icon: "activity"
+      description: "Regime-weighted Monte Carlo with 50K GBM paths, live FX monitoring, configurable horizon, and P5/P50/P95 exposure bands."
+      metrics: ["P95 Exposure", "VaR 95%", "Regime Wt", "Live Rate"]
+    - page: "Supplier Risk Matrix"
+      icon: "alert-triangle"
+      description: "6-factor composite scoring across OTD, defects, cost variance, FX sensitivity, lead-time, and geographic risk."
+      metrics: ["Score", "OTD %", "Defect PPM", "FX Sens"]
+    - page: "Cost Leakage Analyzer"
+      icon: "search"
+      description: "Unit price vs. standard cost variance flagging across 1,000+ PO lines with drill-down to individual orders."
+      metrics: ["Leakage %", "Variance", "Risk Cat", "PO Exp"]
+    - page: "Working Capital Optimizer"
+      icon: "bar-chart-2"
+      description: "Cash Conversion Cycle decomposition with DIO/DPO/DSO sliders and automated negotiation playbooks."
+      metrics: ["CCC Days", "DIO", "DPO", "Opt Days"]
+  repo_url: "https://github.com/DavidMaco/pvis"
+  demo_url: "https://davidmaco-pvis.streamlit.app/"
+
+- id: tco-comparison-model
+  title: "TCO Model"
+  subtitle: "Total Cost of Ownership Comparison"
+  tagline: "8-layer lifecycle TCO analysis with Monte Carlo simulation, stress testing, and financial translation."
+  domain: "Capital Equipment"
+  color: "#8B5CF6"
+  gradient: "from-violet-500 to-purple-400"
+  status: "Production-Ready"
+  problem_statement: >
+    Capital equipment sourcing decisions across emerging and developed markets are
+    driven by unit price, ignoring the 60 to 80% of lifecycle cost hidden in
+    installation, maintenance, spares logistics, FX risk, and operational downtime.
+  solution_summary: >
+    An 8-layer deterministic TCO calculator with 10,000-path lognormal Monte Carlo
+    simulation, a 6-scenario macro stress-test engine, NPV/IRR/EBITDA financial
+    translation, weighted supplier scorecards, and prescriptive optimization.
+    Every output carries evidence classification tags.
+  architecture_summary: >
+    Equipment specs and supplier data flow through a validation layer into an
+    8-layer deterministic TCO engine, then through Monte Carlo simulation and
+    scenario stress-testing. Results feed financial translation and supplier
+    scorecards, converging into prescriptive optimization surfaced via a multi-page
+    Streamlit dashboard and an 11-endpoint FastAPI REST API.
+  architecture_layers:
+    - name: "Input Validation"
+      description: "Equipment specs, supplier quotes, and regional cost factors validated via Pydantic"
+      tech: "Pydantic v2, YAML"
+    - name: "TCO Engine"
+      description: "8-layer deterministic calculator: Acquisition, Installation, Operating, Maintenance, Spares, Risk, Utilization, Residual"
+      tech: "Python, NumPy"
+    - name: "Simulation"
+      description: "10,000-path lognormal Monte Carlo with 6-scenario macro stress testing"
+      tech: "NumPy, SciPy"
+    - name: "Financial Translation"
+      description: "NPV, IRR, EBITDA impact, working capital drag per sourcing option"
+      tech: "pandas, NumPy"
+    - name: "Presentation"
+      description: "Multi-page dashboard and 11-endpoint REST API with auth"
+      tech: "Streamlit, FastAPI, Plotly"
+  business_impact:
+    - "Full 8-layer lifecycle cost visibility by region"
+    - "Monte Carlo risk banding with P5 to P95 uncertainty quantification"
+    - "NPV, IRR, EBITDA impact, and working capital drag per sourcing option"
+    - "6 macro scenario stress tests (base, optimistic, pessimistic, regulatory, disruption, volatility)"
+    - "Prescriptive maintenance scheduling, EOQ inventory, and make-vs-buy recommendations"
+  stack:
+    - "Python 3.10+"
+    - "NumPy / SciPy"
+    - "Streamlit"
+    - "FastAPI"
+    - "Pydantic v2"
+    - "MySQL"
+    - "SQLAlchemy"
+    - "Docker"
+    - "pytest"
+  highlights:
+    - label: "TCO Layers"
+      value: "8"
+    - label: "MC Paths"
+      value: "10K"
+    - label: "Scenarios"
+      value: "6"
+    - label: "Tests"
+      value: "80"
+  key_features:
+    - "8-layer deterministic TCO: Acquisition through Residual Value"
+    - "Evidence classification system (simulated, pilot-observed, production-realized)"
+    - "6+ macro scenario stress engine with FX shock, tariff, energy, disruption"
+    - "Financial translation: NPV, IRR, EBITDA impact, lifecycle cashflow"
+    - "11-endpoint FastAPI REST API with auth and rate limiting"
+  dashboard_pages:
+    - page: "8-Layer TCO Breakdown"
+      icon: "layers"
+      description: "Waterfall chart showing lifecycle cost layers per supplier region, with percentage breakdown."
+      metrics: ["Total TCO", "Acq %", "Maint %", "Residual"]
+    - page: "Monte Carlo Risk Bands"
+      icon: "trending-down"
+      description: "10,000-path lognormal simulation with P5/P95 uncertainty bounds per region."
+      metrics: ["P95 TCO", "Range", "Most-Likely", "Worst"]
+    - page: "Macro Stress Test"
+      icon: "zap"
+      description: "6 macro scenarios with NPV, IRR, and EBITDA impact per sourcing option."
+      metrics: ["NPV Delta", "IRR Hit", "EBITDA", "Break-Even"]
+    - page: "Supplier Scorecard"
+      icon: "award"
+      description: "Weighted multi-criteria scorecard ranking suppliers across cost, quality, risk, ESG."
+      metrics: ["Score", "Cost Rank", "Quality", "Risk"]
+  repo_url: "https://github.com/DavidMaco/TCO_Comparison_Model"
+  demo_url: "https://tcocomparisonmodel.streamlit.app/"
+
+- id: sustainability-roi
+  title: "Green ROI"
+  subtitle: "Sustainability ROI Calculator for Manufacturing"
+  tagline: "Quantified financial and environmental outcomes for sustainable procurement decisions."
+  domain: "Green Procurement"
+  color: "#059669"
+  gradient: "from-emerald-600 to-green-400"
+  status: "Pilot-Ready"
+  problem_statement: >
+    Sustainability programs are approved on policy grounds but stall at budget
+    review. Organizations need measurable financial and environmental outcomes
+    that decision-makers can evaluate directly, particularly in Nigerian FMCG
+    manufacturing where budget justification is critical.
+  solution_summary: >
+    A decision-support analytics platform quantifying procurement cost increase,
+    carbon reduction, operational savings, net annual ROI, and payback period for
+    switching to sustainable materials. Built with seed-based deterministic
+    execution, Pydantic typed contracts, and a pluggable DataAdapter abstraction.
+  architecture_summary: >
+    Streamlit UI atop a pure domain calculation layer (models, materials, scenarios,
+    recommendations), fed by a pluggable ingestion layer (DataAdapter abstraction
+    with CSV/JSON adapter). A pipeline runner orchestrates batch execution, producing
+    generated artifacts in the data directory.
+  architecture_layers:
+    - name: "Ingestion"
+      description: "Pluggable DataAdapter abstraction supporting CSV, JSON, database, and API sources"
+      tech: "Python, Pydantic"
+    - name: "Domain Engine"
+      description: "Pure calculation layer: material models, scenario building, ROI computation"
+      tech: "Python, NumPy"
+    - name: "Pipeline Runner"
+      description: "Orchestrated batch execution producing deterministic, reproducible artifacts"
+      tech: "Python, seed-based RNG"
+    - name: "Presentation"
+      description: "Interactive scenario builder with real-time ROI recalculation"
+      tech: "Streamlit, Plotly"
+  business_impact:
+    - "~82% carbon reduction quantified under demonstration assumptions"
+    - "Net annual ROI calculated with full cost-benefit breakdown"
+    - "Operational savings: Carbon Tax Avoidance + Water Savings + Waste Savings"
+    - "Configurable economic parameters (carbon tax, water cost, waste cost)"
+  stack:
+    - "Python 3.12+"
+    - "Streamlit"
+    - "Plotly"
+    - "Pydantic"
+    - "pytest"
+    - "GitHub Actions"
+  highlights:
+    - label: "CO2 Cut"
+      value: "82%"
+    - label: "Tests"
+      value: "21"
+    - label: "Adapters"
+      value: "Plug"
+    - label: "Status"
+      value: "Pilot"
+  key_features:
+    - "Seed-based deterministic execution for full reproducibility"
+    - "Pydantic typed contracts enforcing data integrity across all layers"
+    - "Pluggable DataAdapter interface (CSV, databases, APIs, cloud stores)"
+    - "Custom Scenario Builder for real-time procurement mix tuning"
+    - "Production guard: runtime assumption guardrails"
+  dashboard_pages:
+    - page: "ROI Summary"
+      icon: "pie-chart"
+      description: "Net annual ROI, payback period, lifetime NPV, and full cost-benefit breakdown."
+      metrics: ["Net ROI %", "Payback", "Carbon Cut", "Saving"]
+    - page: "Carbon Model"
+      icon: "globe"
+      description: "GHG emission comparison with Scope 3 breakdown and carbon tax avoidance calculation."
+      metrics: ["CO2 Cut", "Scope 3", "Tax Offset", "EF"]
+    - page: "Scenario Builder"
+      icon: "sliders"
+      description: "Interactive procurement mix sliders with real-time ROI recalculation."
+      metrics: ["Mix %", "Cost D", "Carbon D", "Break-Even"]
+  repo_url: "https://github.com/DavidMaco/sustainability_ROI_calculator"
+  demo_url: "https://sustainability-roi-calculator.streamlit.app/"

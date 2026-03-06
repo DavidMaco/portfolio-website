@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }} — David Igbonaju{% endblock %}
+{% block description %}{{ project.tagline }}{% endblock %}
+{% block og_title %}{{ project.title }} — {{ project.subtitle }}{% endblock %}
+
+{% block head_extra %}
+<style>
+  :root { --accent-color: {{ project.color }}; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{# ── Reusable SVG macro ── #}
+{% macro icon_svg(name, size=16) %}
+{% if name == "arrow-left" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+{% elif name == "external-link" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+{% elif name == "github" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+{% elif name == "check" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+{% elif name == "target" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+{% elif name == "lightbulb" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+{% elif name == "layers" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+{% elif name == "monitor" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+{% elif name == "zap" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+{% elif name == "code" %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+{% else %}<svg xmlns="http://www.w3.org/2000/svg" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+{% endif %}
+{% endmacro %}
+
+<!-- ═══════════════════════ PROJECT HERO ═══════════════════════ -->
+<section class="project-hero" style="--accent-color: {{ project.color }};">
+  <div class="project-hero-bg" style="background: radial-gradient(ellipse 80% 60% at 50% 100%, {{ project.color }}22, transparent 70%);"></div>
+  <div class="project-hero-content">
+    <div class="container">
+      <a href="{{ base }}index.html#projects" class="project-back" data-animate>
+        {{ icon_svg("arrow-left", 14) }}
+        Back to all projects
+      </a>
+      <div class="section-label" data-animate data-delay="1">{{ project.domain }}</div>
+      <h1 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem);" data-animate data-delay="2">
+        {{ project.title }}<br>
+        <span style="color: var(--c-text-secondary); font-weight: 400; font-size: 0.6em;">{{ project.subtitle }}</span>
+      </h1>
+      <p class="section-desc" data-animate data-delay="3">{{ project.tagline }}</p>
+
+      <div class="project-links" data-animate data-delay="4">
+        {% if project.demo_url %}
+        <a href="{{ project.demo_url }}" target="_blank" rel="noopener" class="btn btn-primary">
+          Live Demo {{ icon_svg("external-link") }}
+        </a>
+        {% endif %}
+        {% if project.repo_url %}
+        <a href="{{ project.repo_url }}" target="_blank" rel="noopener" class="btn btn-ghost">
+          {{ icon_svg("github") }} Source Code
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ STATS ROW ═══════════════════════ -->
+{% if project.highlights %}
+<div class="container">
+  <div class="stats-row" data-animate>
+    {% for h in project.highlights %}
+    <div class="stat-item">
+      <div class="stat-value">{{ h.value }}</div>
+      <div class="stat-label">{{ h.label }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══════════════════════ PROBLEM & SOLUTION ═══════════════════════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <div class="content-grid">
+      <div class="content-card" data-animate>
+        <div class="content-card-title">
+          {{ icon_svg("target") }}
+          Problem
+        </div>
+        <p>{{ project.problem_statement }}</p>
+      </div>
+      <div class="content-card" data-animate data-delay="1">
+        <div class="content-card-title">
+          {{ icon_svg("lightbulb") }}
+          Solution
+        </div>
+        <p>{{ project.solution_summary }}</p>
+      </div>
+    </div>
+
+    <!-- ── Architecture ── -->
+    {% if project.architecture_layers %}
+    <div class="section-label" data-animate>Architecture</div>
+    <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1.5rem;" data-animate data-delay="1">System Architecture</h2>
+    <p class="section-desc" style="margin-bottom: 2rem;" data-animate data-delay="2">{{ project.architecture_summary }}</p>
+
+    <div class="arch-layers" data-animate>
+      {% for layer in project.architecture_layers %}
+      <div class="arch-layer">
+        <div>
+          <div class="arch-layer-name">{{ layer.name }}</div>
+          <div class="arch-layer-tech">{{ layer.tech }}</div>
+        </div>
+        <div class="arch-layer-desc">{{ layer.description }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ── Dashboard Pages ── -->
+    {% if project.dashboard_pages %}
+    <div class="section-label" data-animate>Dashboard</div>
+    <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 0.5rem;" data-animate data-delay="1">Key Dashboard Pages</h2>
+    <p class="section-desc" data-animate data-delay="2">The most important analytical panels in this project.</p>
+
+    <div class="dashboard-grid">
+      {% for dp in project.dashboard_pages %}
+      <div class="dash-card" data-animate data-delay="{{ loop.index }}">
+        <div class="dash-card-head">
+          <div class="dash-card-icon">{{ icon_svg(dp.icon) }}</div>
+          <div class="dash-card-name">{{ dp.page }}</div>
+        </div>
+        <div class="dash-card-desc">{{ dp.description }}</div>
+        <div class="dash-metrics">
+          {% for m in dp.metrics %}
+          <span class="dash-chip">{{ m }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ── Business Impact ── -->
+    {% if project.business_impact %}
+    <div class="section-label" data-animate>Impact</div>
+    <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem;" data-animate data-delay="1">Business Impact</h2>
+    <ul class="impact-list" data-animate data-delay="2">
+      {% for item in project.business_impact %}
+      <li>{{ item }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- ── Key Features ── -->
+    {% if project.key_features %}
+    <div class="section-label" data-animate>Features</div>
+    <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem;" data-animate data-delay="1">Key Features</h2>
+    <ul class="features-list" data-animate data-delay="2">
+      {% for feat in project.key_features %}
+      <li>{{ icon_svg("check") }} {{ feat }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- ── Technology Stack ── -->
+    {% if project.stack %}
+    <div class="section-label" data-animate>Stack</div>
+    <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 1rem;" data-animate data-delay="1">Technology Stack</h2>
+    <div class="stack-grid" data-animate data-delay="2">
+      {% for tech in project.stack %}
+      <span class="stack-tag">{{ tech }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ── Data Note ── -->
+    <div style="background: var(--c-surface); border: 1px solid var(--c-border); border-radius: var(--radius-md); padding: 1rem 1.2rem; font-size: 0.8rem; color: var(--c-text-muted); line-height: 1.6;" data-animate>
+      <strong style="color: var(--c-amber);">Data Note:</strong> All metrics shown above are derived from synthetic demonstration data unless explicitly labelled otherwise. Each project includes full methodology, assumptions, and evidence classification details.
+    </div>
+  </div>
+</section>
+
+{% endblock %}
